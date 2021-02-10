@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import logo from "../assets/logo.jpeg";
 import Lang from "./Lang";
 
@@ -51,35 +52,39 @@ export const Form = () => {
   const newDate = new Date();
   const formData = {
     defaultValues: {
-      sector: "",
-      isPida: "",
-      isClosed: "",
-      machines_working: "",
-      risk_level: "",
+      first_name: "",
+      second_name: "",
+      isRegistered: "",
+      email: "",
+      instagram: "",
       date: newDate.toLocaleString(),
     },
   };
+
+  const [name, setName] = useLocalStorage("name", "");
   const [submitting, setSubmitting] = useState(false);
-  const { register, handleSubmit, errors } = useForm({ formData });
-  const submitForm = async (formData) => {
+  const { register, handleSubmit, errors, reset } = useForm({
+    formData,
+    mode: "onChange",
+  });
+
+  const submitForm = async (formData, e) => {
+    e.target.reset();
     setSubmitting(true);
-    const response = await fetch(
-      "http://localhost:5000/api/pida/palafour/create",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sector: formData.sector,
-          isPida: formData.isPida,
-          isClosed: formData.isClosed,
-          machines_working: formData.machines_working,
-          risk_level: formData.risk_level,
-          date: newDate.toLocaleString(),
-        }),
-      }
-    );
+    const response = await fetch("http://localhost:5000/api/park/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        first_name: formData.firstName,
+        second_name: formData.surName,
+        email: formData.email,
+        instagram: formData.instagram,
+        isRegistered: formData.consent,
+        date: newDate.toLocaleString(),
+      }),
+    });
     const data = await response.json();
     if (errors) {
       console.log(errors);
@@ -105,6 +110,10 @@ export const Form = () => {
               required: "First Name is required.",
               message: "First Name is required.",
             })}
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
           />
           {errors.firstName && (
             <p className="errorMsg">{errors.firstName.message}</p>
@@ -231,7 +240,7 @@ export const Form = () => {
 // Fetch Data
 
 export const GetData = (props) => {
-  const URL = `http://localhost:5000/api`;
+  const URL = `http://localhost:5000/api/park`;
   const [data, setItem] = useState({});
   const fetchItem = async () => {
     const fetchItem = await fetch(URL);
