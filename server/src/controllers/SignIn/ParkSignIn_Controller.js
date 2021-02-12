@@ -1,5 +1,6 @@
 const express = require("express");
 const ParkSignIn = require("../../models/SignIn/ParkSignIn");
+const schedule = require("node-schedule");
 
 async function park_index(req, res) {
   try {
@@ -13,6 +14,26 @@ async function park_index(req, res) {
     return res.send({ error: "park Data does not exist!" });
   }
 }
+
+async function schedule_register(req, res) {
+  const flush = await ParkSignIn.updateMany(
+    { isRegistered: "true" },
+    { $set: { isRegistered: "false" } }
+  );
+  console.log("24 h flush passed");
+  if (!flush) {
+    return res.send({ message: "All registrations flushed" });
+  }
+  return;
+}
+
+function flushDB() {
+  schedule.scheduleJob("0 0 * * *", function () {
+    schedule_register();
+    console.log("Registration Flushed");
+  });
+}
+flushDB();
 
 async function park_latest(req, res) {
   try {
