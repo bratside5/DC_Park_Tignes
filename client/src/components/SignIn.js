@@ -1,8 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import logo from "../assets/logo.jpeg";
 import Lang from "./Lang";
+import { useTranslation } from "react-i18next";
+
+// loading component for suspense fallback
+const Loader = () => (
+  <div className="App">
+    <img src={logo} className="App-logo" alt="logo" />
+    <div>loading...</div>
+  </div>
+);
+
+// here app catches the suspense from page in case translations are not yet loaded
+export default function App() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <SignIn />
+    </Suspense>
+  );
+}
 
 const SignIn = () => {
   return (
@@ -14,32 +32,31 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
-
 // Header Component
 
 const Header = () => {
+  const { t, i18n } = useTranslation();
+
   return (
     <section>
-      <div className="container">
+      <div className="flex items-center justify-center">
         <img src={logo} alt="" />
       </div>
       <div className="container mx-auto px-3">
-        <h1 className="text-4xl text-center">Welcome to DC Snowpark Tignes</h1>
+        <h1 className="text-4xl text-center">{t("title")}</h1>
       </div>
       <div className="py-6">
         <Lang />
       </div>
       <div className="container mx-auto">
         <h1 className="text-xl text-center font-medium py-3">
-          Please Sign In Below To Use The Park
+          {t("rules.part1")}
         </h1>
         <h2 className="text-lg text-center font-light py-3">
-          Only people using the facilities are permitted inside, we kindly ask
-          that you spectate from outside the of the fenced area
+          {t("rules.part2")}
         </h2>
         <h2 className="text-lg text-center font-light py-3">
-          Masks & Social Distancing Are Mandatory
+          {t("rules.part3")}
         </h2>
       </div>
     </section>
@@ -49,6 +66,7 @@ const Header = () => {
 // Form Component
 
 export const Form = () => {
+  const { t, i18n } = useTranslation();
   const newDate = new Date();
   const formData = {
     defaultValues: {
@@ -61,12 +79,15 @@ export const Form = () => {
     },
   };
 
-  const [name, setName] = useLocalStorage("name", "");
+  const [firstName, setFirstName] = useLocalStorage("first_name", "");
+  const [surName, setSurName] = useLocalStorage("second_name", "");
+  const [id, setId] = useLocalStorage("id", "");
   const [submitting, setSubmitting] = useState(false);
-  const { register, handleSubmit, errors, reset } = useForm({
+  const { register, handleSubmit, errors, formState } = useForm({
     formData,
     mode: "onChange",
   });
+  const { isSubmitted } = formState;
 
   const submitForm = async (formData, e) => {
     e.target.reset();
@@ -92,7 +113,13 @@ export const Form = () => {
       console.log("success, redirect to home page");
     }
     setSubmitting(false);
+    console.log(data._id);
+    setId(data._id);
+    if (isSubmitted) {
+      console.log("Form Submitted");
+    }
   };
+
   return (
     <section className="mt-6 bg-gray-200">
       <form onSubmit={handleSubmit(submitForm)}>
@@ -101,7 +128,8 @@ export const Form = () => {
             htmlFor="firstName"
             className="text-center mb-2 uppercase font-bold text-lg text-grey-darkest"
           >
-            First Name <span className="font-light text-sm"> (Required)</span>
+            {t("form.firstName")}{" "}
+            <span className="font-light text-sm"> ({t("form.required")})</span>
           </label>
           <input
             className="rounded shadow-md w-3/4 border py-2 px-3 text-grey-darkest"
@@ -110,9 +138,9 @@ export const Form = () => {
               required: "First Name is required.",
               message: "First Name is required.",
             })}
-            value={name}
+            value={firstName}
             onChange={(e) => {
-              setName(e.target.value);
+              setFirstName(e.target.value);
             }}
           />
           {errors.firstName && (
@@ -125,7 +153,8 @@ export const Form = () => {
             htmlFor="surName"
             className="text-center mb-2 uppercase font-bold text-lg text-grey-darkest"
           >
-            Surname <span className="font-light text-sm"> (Required)</span>
+            {t("form.secondName")}{" "}
+            <span className="font-light text-sm"> ({t("form.required")})</span>
           </label>
           <input
             className="rounded shadow-md w-3/4 border py-2 px-3 text-grey-darkest"
@@ -134,6 +163,10 @@ export const Form = () => {
               required: "Surname is required.",
               message: "Surname is required.",
             })}
+            value={surName}
+            onChange={(e) => {
+              setSurName(e.target.value);
+            }}
           />
           {errors.surName && (
             <p className="errorMsg">{errors.surName.message}</p>
@@ -145,7 +178,8 @@ export const Form = () => {
             htmlFor="email"
             className="text-center mb-2 uppercase font-bold text-lg text-grey-darkest"
           >
-            Email <span className="font-light text-sm"> (optional)</span>
+            Email{" "}
+            <span className="font-light text-sm"> ({t("form.optional")})</span>
           </label>
           <input
             className="rounded shadow-md w-3/4 border py-2 px-3 text-grey-darkest"
@@ -165,17 +199,13 @@ export const Form = () => {
             htmlFor="instagram"
             className="text-center mb-2 uppercase font-bold text-lg text-grey-darkest"
           >
-            Instagram <span className="font-light text-sm"> (optional)</span>
+            Instagram{" "}
+            <span className="font-light text-sm"> ({t("form.optional")})</span>
           </label>
           <input
             className="rounded shadow-md w-3/4 border py-2 px-3 text-grey-darkest"
             name="instagram"
-            ref={register({
-              pattern: {
-                value: /@^[a-zA-Z0-9._]+$/,
-                message: "Instagram Account is not valid.",
-              },
-            })}
+            ref={register({})}
           />
           {errors.instagram && (
             <p className="errorMsg">{errors.instagram.message}</p>
@@ -187,12 +217,10 @@ export const Form = () => {
             htmlFor="consent"
             className="text-center mb-2 uppercase font-bold text-lg text-grey-darkest"
           >
-            Consent <span className="font-light text-sm"> (Required)</span>
+            {t("form.consent")}{" "}
+            <span className="font-light text-sm"> ({t("form.required")})</span>
             <hr />
-            <span className="font-light text-md">
-              I hereby declare that I have read and understood the rules to use
-              the snowpark
-            </span>
+            <span className="font-light text-md">{t("form.consentText")}</span>
           </label>
           <input
             type="checkbox"
@@ -227,7 +255,7 @@ export const Form = () => {
                 className="bg-green-500 p-2 border-gray-900 shadow rounded w-1/2"
                 type="submit"
               >
-                Submit
+                {t("form.submit")}
               </button>
             </div>
           )}
@@ -246,11 +274,12 @@ export const GetData = (props) => {
     const fetchItem = await fetch(URL);
     const data = await fetchItem.json();
     setItem(data);
+    console.log(data);
   };
   useEffect(() => {
     fetchItem();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, []);
 
   return (
     <>

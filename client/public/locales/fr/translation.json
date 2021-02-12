@@ -1,0 +1,23 @@
+{
+  "title": "Bienvenue a DC Snowpark Tignes",
+  "rules": {
+    "part1": "Vous devez vous inscrire pour utiliser le snowpark",
+    "part2": "Seules les personnes utilisant les installations sont autorisées à l’intérieur, nous vous demandons de regarder de l’extérieur du snowpark",
+    "part3": "Le port de masques et de distanciation sociale sont obligatoires"
+  },
+  "form":{
+      "firstName":"Prénom",
+      "secondName":"Nom",
+      "email":"Email",
+      "instagram":"Instagram",
+      "consent":"Accepter",
+      "required":"Requis",
+      "optional":"Optionnel",
+      "consentText":"JE DÉCLARE QUE J’AI LU ET COMPRIS LES RÈGLES D’UTILISATION DU SNOWPARK",
+      "submit":"Envoyer"
+  },
+  "registration":{
+      "registered":"Vous êtes inscrit a",
+      "openingStatus":"État d’ouverture actuel"
+  }
+}
