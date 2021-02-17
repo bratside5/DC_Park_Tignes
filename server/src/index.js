@@ -16,6 +16,13 @@ app.use(function (err, req, res, next) {
   res.status(500).send("Something went wrong, internal server error.");
 });
 
+app.use(express.static(path.join(__dirname, "..", "build")));
+app.use(express.static("public"));
+
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+});
+
 app.use("/api/park", parkRoutes);
 
 app.get("/api", (req, res) => {
