@@ -26,8 +26,8 @@ const SignIn = () => {
   return (
     <>
       <Header />
-      <Form />
       <GetData />
+      <Form />
     </>
   );
 };
@@ -115,15 +115,17 @@ export const Form = () => {
     setSubmitting(false);
     console.log(data._id);
     setId(data._id);
+    window.location.reload();
+
     if (isSubmitted) {
-      console.log("Form Submitted");
+      console.log("Form Posted");
     }
   };
 
   return (
-    <section className="mt-6 bg-gray-200">
+    <section className="bg-gray-200">
       <form onSubmit={handleSubmit(submitForm)}>
-        <div className="flex flex-col items-center justify-center mt-4 pt-6">
+        <div className="flex flex-col items-center justify-center pt-6">
           <label
             htmlFor="firstName"
             className="text-center mb-2 uppercase font-bold text-lg text-grey-darkest"
@@ -268,31 +270,78 @@ export const Form = () => {
 // Fetch Data
 
 export const GetData = (props) => {
-  const URL = `http://localhost:5000/api/park`;
+  const id = localStorage.getItem("id");
+  let parsedId;
+  if (localStorage.getItem("id") === null) {
+    parsedId = "2345";
+  } else {
+    parsedId = id.slice(1, -1);
+  }
+  const URL = `http://localhost:5000/api/park/${parsedId}`;
+  console.log(parsedId);
   const [data, setItem] = useState({});
   const fetchItem = async () => {
     const fetchItem = await fetch(URL);
     const data = await fetchItem.json();
     setItem(data);
-    console.log(data);
   };
   useEffect(() => {
     fetchItem();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  let RegistrationStatus;
+  if (data.isRegistered === "false" || "") {
+    RegistrationStatus = (
+      <>
+        <h1 className="text-grey-900 font-normal text-2xl">
+          Hi {data.first_name}
+          <br />{" "}
+          <span className="pb-6 px-4">Welcome Back to DC Park Tignes</span>
+        </h1>
+        <h1 className="text-xl text-red-500">
+          You seem to be unregistered for today
+          <br /> Please register to use the snowpark
+        </h1>
+      </>
+    );
+  } else if (data.isRegistered === "true") {
+    RegistrationStatus = (
+      <>
+        <h1 className="text-grey-900 font-normal text-2xl">
+          Hi {data.first_name}
+          <br />{" "}
+          <span className="pt-6 px-4">Welcome Back to DC Park Tignes</span>
+        </h1>
+        <h1 className="text-xl pt-6 px-4 text-green-500">
+          Yewwww!
+          <br /> Your all registered for today! Enjoy the park!
+        </h1>
+      </>
+    );
+  }
+  let NoId;
+  if (!data.first_name) {
+    NoId = (
+      <h1 className="text-grey-900 font-normal text-2xl">
+        Welcome to DC Park Tignes
+        <br />
+        <h2 className="text-red-500 pt-6 px-4 text-xl">
+          You seem to be unregistered for today, Please register to use the
+          snowpark
+        </h2>
+      </h1>
+    );
+  } else if (data.firstName) {
+    NoId = <h1 className="text-green-500">Hi {data.first_name}</h1>;
+  }
+
   return (
     <>
-      <div className="py-3 text-center">
-        <div className="text-gray-600 text-muted">
-          Registered At:{" "}
-          <span className="ml-2 text-gray-700 font-semibold">{data.date}</span>
-        </div>
-        <div className="text-gray-600 text-muted">
-          Current Opening Status:{" "}
-          <span className="ml-2 text-gray-700 font-semibold">
-            {data.isClosed}
-          </span>
+      <div className="bg-gray-100 py-6 text-center">
+        <div className="">
+          <span className="">{NoId}</span>
+          <span className="">{RegistrationStatus}</span>
         </div>
       </div>
     </>
