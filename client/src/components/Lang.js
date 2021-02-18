@@ -26,7 +26,7 @@ const Lang = () => {
         </button>
         <button
           type="button"
-          onClick={() => changeLanguage("en-GB")}
+          onClick={() => changeLanguage("en")}
           className="w-1/4 h-auto"
         >
           <img src={FlagGB} alt="" className="rounded-full ml-2" />
