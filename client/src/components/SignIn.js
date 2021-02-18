@@ -26,7 +26,6 @@ const SignIn = () => {
   return (
     <>
       <Header />
-      <GetData />
       <Form />
     </>
   );
@@ -38,7 +37,7 @@ const Header = () => {
   const { t, i18n } = useTranslation();
 
   return (
-    <section>
+    <section className="mx-3">
       <div className="flex items-center justify-center">
         <img src={logo} alt="" />
       </div>
@@ -48,6 +47,7 @@ const Header = () => {
       <div className="py-6">
         <Lang />
       </div>
+      <GetData />
       <div className="container mx-auto">
         <h1 className="text-xl text-center font-medium py-3">
           {t("rules.part1")}
@@ -58,6 +58,21 @@ const Header = () => {
         <h2 className="text-lg text-center font-light py-3">
           {t("rules.part3")}
         </h2>
+        <h2 className="text-lg text-center font-light py-3">
+          {t("rules.part4")}
+        </h2>
+        <h2 className="text-lg text-center font-light py-3">
+          {t("rules.part5")}
+        </h2>
+        <h2 className="text-lg text-center font-light py-3">
+          {t("rules.part6")}
+        </h2>
+        <h2 className="text-lg text-center font-light py-3">
+          {t("rules.part7")}
+        </h2>
+      </div>
+      <div className="text-center py-3">
+        <Modal />
       </div>
     </section>
   );
@@ -79,8 +94,8 @@ export const Form = () => {
     },
   };
 
-  const [firstName, setFirstName] = useLocalStorage("first_name", "");
-  const [surName, setSurName] = useLocalStorage("second_name", "");
+  // const [firstName, setFirstName] = useLocalStorage("first_name", "");
+  // const [surName, setSurName] = useLocalStorage("second_name", "");
   const [id, setId] = useLocalStorage("id", "");
   const [submitting, setSubmitting] = useState(false);
   const { register, handleSubmit, errors, formState } = useForm({
@@ -140,10 +155,10 @@ export const Form = () => {
               required: "First Name is required.",
               message: "First Name is required.",
             })}
-            value={firstName}
-            onChange={(e) => {
-              setFirstName(e.target.value);
-            }}
+            // value={firstName}
+            // onChange={(e) => {
+            //   setFirstName(e.target.value);
+            // }}
           />
           {errors.firstName && (
             <p className="errorMsg">{errors.firstName.message}</p>
@@ -165,10 +180,10 @@ export const Form = () => {
               required: "Surname is required.",
               message: "Surname is required.",
             })}
-            value={surName}
-            onChange={(e) => {
-              setSurName(e.target.value);
-            }}
+            // value={surName}
+            // onChange={(e) => {
+            //   setSurName(e.target.value);
+            // }}
           />
           {errors.surName && (
             <p className="errorMsg">{errors.surName.message}</p>
@@ -270,6 +285,7 @@ export const Form = () => {
 // Fetch Data
 
 export const GetData = (props) => {
+  const { t, i18n } = useTranslation();
   const id = localStorage.getItem("id");
   let parsedId;
   if (localStorage.getItem("id") === null) {
@@ -296,13 +312,9 @@ export const GetData = (props) => {
       <>
         <h1 className="text-grey-900 font-normal text-2xl">
           Hi {data.first_name}
-          <br />{" "}
-          <span className="pb-6 px-4">Welcome Back to DC Park Tignes</span>
+          <br /> <span className="pb-6 px-4">{t("title")}</span>
         </h1>
-        <h1 className="text-xl text-red-500">
-          You seem to be unregistered for today
-          <br /> Please register to use the snowpark
-        </h1>
+        <h1 className="text-xl text-red-500">{t("registrationStatus.1")}</h1>
       </>
     );
   } else if (data.isRegistered === "true") {
@@ -310,12 +322,10 @@ export const GetData = (props) => {
       <>
         <h1 className="text-grey-900 font-normal text-2xl">
           Hi {data.first_name}
-          <br />{" "}
-          <span className="pt-6 px-4">Welcome Back to DC Park Tignes</span>
+          <br /> <span className="pt-6 px-4">{t("title")}</span>
         </h1>
         <h1 className="text-xl pt-6 px-4 text-green-500">
-          Yewwww!
-          <br /> Your all registered for today! Enjoy the park!
+          {t("registrationStatus.2")}
         </h1>
       </>
     );
@@ -324,11 +334,10 @@ export const GetData = (props) => {
   if (!data.first_name) {
     NoId = (
       <h1 className="text-grey-900 font-normal text-2xl">
-        Welcome to DC Park Tignes
+        {t("title")}
         <br />
         <h2 className="text-red-500 pt-6 px-4 text-xl">
-          You seem to be unregistered for today, Please register to use the
-          snowpark
+          {t("registrationStatus.1")}
         </h2>
       </h1>
     );
@@ -338,7 +347,7 @@ export const GetData = (props) => {
 
   return (
     <>
-      <div className="bg-gray-100 py-6 text-center">
+      <div className="bg-gray-100 py-6 min-w-full text-center border border-gray-300 rounded shadow">
         <div className="">
           <span className="">{NoId}</span>
           <span className="">{RegistrationStatus}</span>
@@ -347,3 +356,72 @@ export const GetData = (props) => {
     </>
   );
 };
+
+function Modal() {
+  const { t, i18n } = useTranslation();
+  const [showModal, setShowModal] = useState(false);
+  return (
+    <>
+      <button
+        className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+        type="button"
+        style={{ transition: "all .15s ease" }}
+        onClick={() => setShowModal(true)}
+      >
+        {t("gdpr.button")}
+      </button>
+
+      {showModal ? (
+        <>
+          <div
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+            onClick={() => setShowModal(false)}
+          >
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
+                  <h3 className="text-3xl font-semibold">{t("gdpr.button")}</h3>
+                  <button
+                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      ×
+                    </span>
+                  </button>
+                </div>
+                {/*body*/}
+                <div className="relative p-6 flex-auto">
+                  <p className="my-4 text-gray-600 text-xs leading-relaxed">
+                    {t("gdpr.1")}
+                    <br />
+                    {t("gdpr.2")}
+                    <br />
+                    {t("gdpr.3")}
+                    <br />
+                    {t("gdpr.4")}
+                    <br />
+                  </p>
+                </div>
+                {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    style={{ transition: "all .15s ease" }}
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
+    </>
+  );
+}

@@ -1,9 +1,26 @@
 {
-  "title": "Bienvenue a DC Snowpark Tignes",
+  "title": "Bienvenue au DC Hike Park Tignes",
   "rules": {
-    "part1": "Vous devez vous inscrire pour utiliser le snowpark",
-    "part2": "Seules les personnes utilisant les installations sont autorisées à l’intérieur, nous vous demandons de regarder de l’extérieur du snowpark",
-    "part3": "Le port de masques et de distanciation sociale sont obligatoires"
+    "part1": "Les présentes Conditions Générales d’Utilisation et de Vente ont vocation à s’appliquer à toute circulation dans le Hike Park de Tignes et à informer les clients préalablement à l’entrée sur le site du Hike Park.",
+    "part2": "Compte tenu des mesures sanitaires en vigueur en France, nous vous rappelons que le port du masque est  obligatoire lorsque vous ne ridez pas.",
+    "part3": "Une distance minimum de 2 mètres doit être respectée lorsque vous ne portez pas le masque, notamment lorsque vous êtes en attente sur les starts des différentes lignes.",
+    "part4": "Nous vous demandons de bien vouloir quitter la zone lorsque vous ne ridez pas, les espaces de chill doivent  être en dehors de l’espace délimité par les filets. Il est interdit de consommer de l’alcool et de manger  à l’intérieur du Hike Park. ",
+    "part5": "L’accès au Hike Park est autorisé à partir de 6 ans.",
+    "part6": "Nous comptons sur votre compréhension et votre aide pour faire respecter ces mesures qui nous  permettront de garder notre Hike Park ouvert.",
+    "part7": "Le personnel du Hike Park se réserve le droit de refuser l’accès à des usagers pour des raisons de  capacité à pratiquer l’activité.  "
+  },
+  "gdpr":{
+    "button":"RGPD",
+    "1":"Les données collectées pour l’accès au Hike Park, à savoir son nom, prénom et son adresse mail font l’objet d’un traitement informatique. Ces données sont exclusivement destinées à l’Editeur, responsables du traitement.",
+    "2":"Conformément à la loi «Informatique et Libertés» n° 78-17 du 6 janvier 1978, modifiée en 2004, l’utilisateur dispose d’un droit d’accès, de modification et de suppression des données le concernant, qu’il peut exercer en contactant l’Editeur :",
+    "3":"par email à l’adresse sportsetloisirs@tignes.net",
+    "4":"L’absence de fourniture ou la suppression de données personnelles ne permettra néanmoins pas à l’utilisateur d’accéder à certaines des fonctionnalités. L’Editeur s’engage à respecter les dispositions prévues par la loi «Informatique et Libertés» n° 78-17 du 6 janvier 1978, et assure des mesures optimales de sécurité contre la perte, le mauvais usage et l’altération des informations qui lui sont confiées par l’Utilisateur. Toutes les données reçues sont sauvegardées quotidiennement et conservées sur un support de sauvegarde sécurisé."
+  },
+  "registrationStatus":{
+    "1":"Vous ne semblez pas être inscrit pour aujourd'hui, merci de vous inscrire pour utiliser le snowpark",
+    "2":"Vous êtes inscrit pour aujourd'hui! Profitez! ",
+    "3":"",
+    "4":""
   },
   "form":{
       "firstName":"Prénom",

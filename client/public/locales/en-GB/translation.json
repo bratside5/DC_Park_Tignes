@@ -1,9 +1,26 @@
 {
-    "title": "Welcome to DC Snowpark Tignes",
+    "title": "Welcome to DC Hike Park Tignes",
     "rules": {
-      "part1": "Please Sign In Below To Use The Park",
-      "part2": "Only people using the facilities are permitted inside, we kindly ask that you spectate from outside the of the fenced area",
-      "part3": "Masks & Social Distancing Are Mandatory"
+      "part1": "These General Terms and Conditions of Use apply to all user of the Tignes Hike Park. They shall inform all customers of rules prior to entering the Hike Park.",
+      "part2": "Given the health measures in force in France, we remind you that wearing a mask is compulsory even when you are not riding",
+      "part3": "Please keep a minimum distance of 2 meters from each other when you are not wearing a mask, in particular when you are waiting on the start points of the various lines.",
+      "part4": "We kindly ask you to leave the area when you are not riding; chill out spaces are outside the areas defined by the nets. Alcohol consumption and eating are prohibited inside the Hike Park. ",
+      "part5": "Access to the Hike Park is authorized from 6 years old.",
+      "part6": "In order to keep the Hike Park open, we are counting on you to respect these rules.",
+      "part7": "Hike Park staff reserve the right to deny access to any users due to over capacity."
+    },
+    "gdpr":{
+      "button":"See GDPR policy",
+      "1":"Collection of surnames, first names and email addresses to control access to the Hike Park shall be subject  to computer processing. ",
+      "2":"The Processor shall exclusively use this data. In accordance with the “Informatique et Libertés” law n ° 78-17 of January 6, 1978, as amended in 2004,  the user has the right to access, modify and delete data concerning himself. This right can exercised by contacting the Processor",
+      "3":"by email to sportsetloisirs@tignes.net ",
+      "4":"Failure to provide or deletion of personal data will result in access to the Hike Park being refused. The Processor undertakes to comply with the provisions of the Informatique et Libertés law n ° 78-17 of  January 6, 1978, and ensures optimal security measures against the loss, misuse and alteration of information that are entrusted to it by the User. All data is backed up daily and stored on a secure media backup."
+    },
+    "registrationStatus":{
+      "1":"You seem to be unregistered for today, Please register to use the snowpark",
+      "2":"Yewwww! Your all registered for today! Enjoy the park!",
+      "3":"",
+      "4":""
     },
     "form":{
         "firstName":"First Name",
