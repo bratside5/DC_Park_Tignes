@@ -3,6 +3,7 @@ require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const dbConnect = require("../src/utils/dbConnect");
+const usersRoutes = require("../src/routes/users/users");
 const parkRoutes = require("./routes/SignIn/ParkSignIn_Routes");
 const cors = require("cors");
 
@@ -24,6 +25,7 @@ app.use(function (err, req, res, next) {
 // app.use((req, res, next) => {
 //   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 // });
+app.use("/api/users", usersRoutes);
 
 app.use("/api/park", parkRoutes);
 

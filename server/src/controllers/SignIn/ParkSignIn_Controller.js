@@ -99,10 +99,38 @@ async function park_delete(req, res) {
   }
 }
 
+async function park_totals(req, res) {
+  try {
+    const parkTotal = await ParkSignIn.estimatedDocumentCount();
+    if (!parkTotal) {
+      return res.sendStatus({ message: "No park total data" });
+    }
+    return res.sendStatus(parkTotal);
+  } catch (error) {
+    res.status(404);
+    return res.send({ error: "Park Total doesn't exist!" });
+  }
+}
+
+async function park_daily(req, res) {
+  try {
+    const parkDaily = await ParkSignIn.find({ isRegistered: "true" });
+    if (!parkDaily) {
+      return res.send({ message: "No park daily data" });
+    }
+    return res.send(parkDaily);
+  } catch (error) {
+    res.status(404);
+    return res.send({ error: "Park Daily doesn't exist!" });
+  }
+}
+
 module.exports = {
   park_index,
   park_details,
   park_latest,
   park_create_post,
   park_delete,
+  park_totals,
+  park_daily,
 };

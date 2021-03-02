@@ -5,6 +5,8 @@ const router = express.Router();
 // Get all posts
 router.get("/", parkController.park_index);
 router.get("/latest", parkController.park_latest);
+router.get("/totals", parkController.park_totals);
+router.get("/daily", parkController.park_daily);
 router.get("/:id", parkController.park_details);
 
 router.post("/create", parkController.park_create_post);
