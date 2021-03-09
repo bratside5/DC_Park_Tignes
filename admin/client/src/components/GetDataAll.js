@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 
 const GetData = (props) => {
-  const URL = `http://dcparktignes.com/api/park`;
+  const URL = `https://dcparktignes.com/api/park`;
   const [data, setItem] = useState([]);
   const fetchItem = async () => {
     const fetchItem = await fetch(URL);
