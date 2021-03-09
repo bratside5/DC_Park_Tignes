@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 
-export const GetData = (props) => {
-  const URL = "http://localhost:5000/api/park/daily"; //`http://dcparktignes.com/api/park`;
+const GetData = (props) => {
+  const URL = `http://dcparktignes.com/api/park`;
   const [data, setItem] = useState([]);
   const fetchItem = async () => {
     const fetchItem = await fetch(URL);
@@ -16,8 +16,8 @@ export const GetData = (props) => {
 
   return (
     <>
-      <div className="text-xl border border-gray-800 rounded py-6 px-12">
-        {data.length} people have registered today{" "}
+      <div className="text-xl py-6 px-12">
+        {data.length} people have visited the park in total{" "}
       </div>
       {/* {data &&
         data.map((data) => (
@@ -32,3 +32,4 @@ export const GetData = (props) => {
     </>
   );
 };
+export default GetData;
