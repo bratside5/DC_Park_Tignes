@@ -107,7 +107,7 @@ export const Form = () => {
   const submitForm = async (formData, e) => {
     e.target.reset();
     setSubmitting(true);
-    const response = await fetch("http://dcparktignes.com/api/park/create", {
+    const response = await fetch("https://dcparktignes.com/api/park/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -293,7 +293,7 @@ export const GetData = (props) => {
   } else {
     parsedId = id.slice(1, -1);
   }
-  const URL = `http://dcparktignes.com/api/park/${parsedId}`;
+  const URL = `https://dcparktignes.com/api/park/${parsedId}`;
   console.log(parsedId);
   const [data, setItem] = useState({});
   const fetchItem = async () => {
