@@ -69,7 +69,7 @@ const GetCalendarData = ({ startDate, endDate, date }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
-  const URL = `http://localhost:5000/api/park/dates-between?startDate=${startDate}&endDate=${endDate}`;
+  const URL = `https://admin.dcparktignes.com/api/park/dates-between?startDate=${startDate}&endDate=${endDate}`;
   console.log(URL);
   const fetchItem = async () => {
     setLoading(true);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const GetCalendarData = ({ startDate, endDate, date }) => {
   const [item, setItem] = useState([]);
-  const URL = `http://localhost:5000/api/park/dates-between?startDate=${startDate}&endDate=${endDate}`;
+  const URL = `https://admin.dcparktignes.com/api/park/dates-between?startDate=${startDate}&endDate=${endDate}`;
   console.log(URL);
   const fetchItem = async () => {
     const fetchItem = await fetch(URL);
