@@ -2,6 +2,8 @@ import React from "react";
 import GetDataDaily from "./GetDataDaily";
 import GetDataAll from "./GetDataAll";
 import Calender from "./calendar/Calendar";
+import GetDataYesterday from "./GetDataYesterday";
+import GetDataWeek from "./GetDataWeek";
 
 const AdminPage = ({ user }) => {
   return (
@@ -64,7 +66,7 @@ const AdminPage = ({ user }) => {
                   </div>
                   <div class="flex-1  md:text-center">
                     <h5 class="font-bold uppercase text-gray-200">
-                      Registrations Yesterday
+                      <GetDataYesterday />
                     </h5>
                     <h3 class="font-bold text-3xl text-gray-300 py-6">
                       2{" "}
@@ -95,7 +97,7 @@ const AdminPage = ({ user }) => {
                     Registrations This Week
                   </h5>
                   <h3 class="font-bold text-3xl text-gray-300">
-                    <GetDataDaily />
+                    <GetDataWeek />
                     <span class="text-red-500">
                       <i class="fas fa-caret-up"></i>
                     </span>
