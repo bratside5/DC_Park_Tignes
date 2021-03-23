@@ -120,7 +120,7 @@ const GetCalendarData = ({ startDate, endDate, date }) => {
             currentItems.map((items) => <li key={items._id}>{items.email}</li>)
           ) : (
             <p className="font-bold text-3xl py-3 text-gray-300">
-              No data yet...
+              {/* No data yet... */}
             </p>
           )}
         </ul>
