@@ -35,7 +35,6 @@ export default function Calender() {
                   onChange={(item) => setDate([item.selection])}
                   moveRangeOnFirstSelection={false}
                   ranges={date}
-                  initialFocusedRange={["Mar 1, 2021", "Mar 4, 2021"]}
                 />
               </div>
             </div>
